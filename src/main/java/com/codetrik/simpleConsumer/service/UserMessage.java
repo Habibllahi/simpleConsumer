@@ -28,24 +28,20 @@ public class UserMessage implements Message<User> {
     }
 
     @Override
-    public void consumeMessage(Channel channel) {
+    public User consumeMessage(Channel channel) throws IOException {
         AtomicReference<User> atomicUser = new AtomicReference<>();
-        try {
-            var mapper = new ObjectMapper();
-            channel.queueDeclare(USER_QUEUE,false,false,false,null);
-            //this is asynchronous, provided callback will sure be executed in the future on another thread,
-            // but message retrieved from broker is not immediately available
-            channel.basicConsume(USER_QUEUE,true,(String consumerTag, Delivery delivery)-> {
-                var message = delivery.getBody();
-                logger.info("[X] message received" + message);
-                atomicUser.set(mapper.readValue(message, User.class));
-                logger.info("[X] user firstname : " + atomicUser.get().getFirstName());
+        var mapper = new ObjectMapper();
+        channel.queueDeclare(USER_QUEUE,false,false,false,null);
+        //this is asynchronous, provided callback will sure be executed in the future on another thread,
+        // but message retrieved from broker is not immediately available
+        channel.basicConsume(USER_QUEUE,true,(String consumerTag, Delivery delivery)-> {
+            var message = delivery.getBody();
+            logger.info("[X] message received" + message);
+            atomicUser.set(mapper.readValue(message, User.class));
+            logger.info("[X] user firstname : " + atomicUser.get().getFirstName());
             },(String consumerTag)->{
                 logger.info("[y] message with tag "+consumerTag+" not found");
             });
-
-        } catch (IOException e) {
-            logger.error(e.getMessage(),e);
-        }
+        return null;
     }
 }

@@ -1,11 +1,7 @@
 package com.codetrik.simpleConsumer.controller;
 
-import com.codetrik.Message;
-import com.codetrik.request.UserServiceRequest;
-import com.codetrik.response.UserServiceResponse;
 import com.codetrik.simpleConsumer.service.UserService;
 import com.codetrik.simpleConsumer.setup.SimpleConsumerServiceBox;
-import com.rabbitmq.client.Connection;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +12,11 @@ import java.util.concurrent.ExecutorService;
 
 @RestController
 @RequestMapping("/api/v1")
-public class UserController {
+public class Controller {
     private final ExecutorService executorService;
     private final UserService userService;
 
-    public UserController(@Qualifier("service-executor") ExecutorService executorService,@Qualifier("user-service") UserService userService) {
+    public Controller(@Qualifier("service-executor") ExecutorService executorService, @Qualifier("user-service") UserService userService) {
 
         this.executorService = executorService;
         this.userService = userService;
