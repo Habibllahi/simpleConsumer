@@ -1,0 +1,7 @@
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/RabbitMqConfig.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/controller/UserController.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/setup/SimpleConsumerServiceBox.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/SimplePublisherApplication.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/service/UserMessage.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/service/UserService.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/ConcurrencyConfig.java
