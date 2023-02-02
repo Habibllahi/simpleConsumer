@@ -1,7 +1,5 @@
 package com.codetrik.simpleConsumer.service;
 
-import com.codetrik.Constants;
-import com.codetrik.dto.LoanApplication;
 import com.codetrik.simpleConsumer.setup.SimpleConsumerServiceBox;
 import com.rabbitmq.client.Connection;
 import org.slf4j.Logger;
@@ -9,9 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-
-import static com.codetrik.Constants.LOAN_QUEUE;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @Qualifier("loan-service")
@@ -29,10 +25,16 @@ public class LoanService {
 
     public void consumeLoanApplicationProcess(SimpleConsumerServiceBox box){
         try {
-            var recoverableChannel = this.connection.createChannel(101);
-            box.setChannel(recoverableChannel);
-            this.loanMessage.consumeMessage(box.getChannel());
-        } catch (IOException e) {
+            int channelNumber = 105;
+            var recoverableChannel = this.connection.openChannel();
+            if(recoverableChannel.isPresent()){
+                box.setChannel(recoverableChannel.get());
+                var loanApplication = this.loanMessage.consumeMessage(box.getChannel());
+                box.getServiceResponse().setLoanApplication(loanApplication);
+            }else{
+                logger.info("[CHANNEL] MQ channel creation failed ");
+            }
+        } catch (Exception e) {
             box.getServiceResponse().setErrorMessage(e.getMessage());
             this.logger.error(e.getMessage(),e);
         }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @Qualifier("user-service")
@@ -24,10 +25,15 @@ public class UserService {
 
     public void consumeUser(SimpleConsumerServiceBox box){
         try {
-            var recoverableChannel = this.connection.createChannel();
-            box.setChannel(recoverableChannel);
-            userMessage.consumeMessage(box.getChannel());
-        } catch (IOException e) {
+            var recoverableChannel = this.connection.openChannel();
+            if(recoverableChannel.isPresent()){
+                box.setChannel(recoverableChannel.get());
+                var user = userMessage.consumeMessage(box.getChannel());
+                box.getServiceResponse().setUser(user);
+            }else{
+                logger.info("[CHANNEL] MQ channel creation failed ");
+            }
+        } catch (Exception e) {
             box.getServiceResponse().setErrorMessage(e.getMessage());
             logger.error(e.getMessage(),e);
         }

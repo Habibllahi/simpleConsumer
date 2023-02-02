@@ -9,11 +9,15 @@ import java.util.concurrent.Executors;
 @Configuration
 public class ConcurrencyConfig {
     @Bean("rabbitmq-executor")
-    public ExecutorService newFixedThreadPool(){
+    public ExecutorService rabbitMqExecutor(){
         return Executors.newFixedThreadPool(10);
     }
     @Bean("service-executor")
-    public ExecutorService newScheduledThreadPool(){
+    public ExecutorService serviceExecutor(){
         return Executors.newScheduledThreadPool(10);
+    }
+    @Bean("async-executor")
+    public ExecutorService asyncExecutor(){
+        return Executors.newScheduledThreadPool(2);
     }
 }

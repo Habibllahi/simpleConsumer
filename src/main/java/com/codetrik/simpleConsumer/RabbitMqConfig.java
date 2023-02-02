@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 @Configuration
