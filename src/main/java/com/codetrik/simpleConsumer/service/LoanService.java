@@ -1,5 +1,6 @@
 package com.codetrik.simpleConsumer.service;
 
+import com.codetrik.dto.LoanApplication;
 import com.codetrik.simpleConsumer.setup.SimpleConsumerServiceBox;
 import com.rabbitmq.client.Connection;
 import org.slf4j.Logger;
@@ -23,19 +24,15 @@ public class LoanService {
     }
 
 
-    public void consumeLoanApplicationProcess(SimpleConsumerServiceBox box){
+    public void consumeLoanApplicationProcess(){
         try {
-            int channelNumber = 105;
             var recoverableChannel = this.connection.openChannel();
             if(recoverableChannel.isPresent()){
-                box.setChannel(recoverableChannel.get());
-                var loanApplication = this.loanMessage.consumeMessage(box.getChannel());
-                box.getServiceResponse().setLoanApplication(loanApplication);
+                this.loanMessage.consumeMessage(recoverableChannel.get());
             }else{
                 logger.info("[CHANNEL] MQ channel creation failed ");
             }
         } catch (Exception e) {
-            box.getServiceResponse().setErrorMessage(e.getMessage());
             this.logger.error(e.getMessage(),e);
         }
     }

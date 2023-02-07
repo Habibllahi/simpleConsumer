@@ -1,9 +1,11 @@
 package com.codetrik.simpleConsumer.service;
 
-import com.codetrik.Blocker;
 import com.codetrik.Message;
+import com.codetrik.SharedConnectionFactory;
 import com.codetrik.dto.LoanApplication;
 import com.codetrik.dto.LoanResponse;
+import com.codetrik.event.MQEvent;
+import com.codetrik.simpleConsumer.event.MQLoanMessageEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.CancelCallback;
@@ -13,11 +15,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 import static com.codetrik.Constants.LOAN_QUEUE;
 
@@ -26,6 +27,9 @@ import static com.codetrik.Constants.LOAN_QUEUE;
 @Setter
 @Qualifier("loan-message")
 public class LoanMessage implements Message<LoanApplication> {
+    @Autowired
+    ApplicationEventPublisher applicationEventPublisher;
+
     private Logger logger = LoggerFactory.getLogger("LoanMessage");
     private ObjectMapper mapper = new ObjectMapper();
     @Override
@@ -33,11 +37,9 @@ public class LoanMessage implements Message<LoanApplication> {
     }
 
     @Override
-    public LoanApplication consumeMessage(Channel channel) throws Exception {
+    public void consumeMessage(Channel channel) throws Exception {
         var consumeFromQueue = channel.queueDeclare(LOAN_QUEUE,false,
                 false,false,null); //declare a server-named Queue and get the Queue name
-        BlockingQueue<LoanApplication> blockingQueue = new ArrayBlockingQueue<>(1);
-        Blocker<LoanApplication> blocker = new Blocker<>(blockingQueue);
         //this call is sync, will be executed surely sometimes in the future, however blocking queue ensure it blocks
         //until
         DeliverCallback deliverCallback =  (consumerTag, message)->{
@@ -50,14 +52,17 @@ public class LoanMessage implements Message<LoanApplication> {
                 data.getResponse().setOk(Boolean.TRUE);
                 //Provide feedback
                 channel.basicPublish("",replyToQue,prop,mapper.writeValueAsBytes(data));
-                blocker.putDataInBlockingQueue(data);
+                applicationEventPublisher.publishEvent(new MQLoanMessageEvent(this,new MQEvent<>(data)));
+                channel.basicAck(message.getEnvelope().getDeliveryTag(),false);
+                if(!(consumeFromQueue.getMessageCount() > 0)){
+                    SharedConnectionFactory.closeChannel(channel);
+                }
             }
         };
 
         CancelCallback cancelCallback = (String consumerTag)->{};
 
-        channel.basicConsume(LOAN_QUEUE,true,deliverCallback,cancelCallback);
-        return blocker.takeDataInBlockingQueue();
+        channel.basicConsume(LOAN_QUEUE,false,deliverCallback,cancelCallback);
     }
 
 

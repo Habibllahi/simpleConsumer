@@ -7,9 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicReference;
-
 @Service
 @Qualifier("user-service")
 public class UserService {
@@ -23,18 +20,15 @@ public class UserService {
         this.connection = connection;
     }
 
-    public void consumeUser(SimpleConsumerServiceBox box){
+    public void consumeUser(){
         try {
             var recoverableChannel = this.connection.openChannel();
             if(recoverableChannel.isPresent()){
-                box.setChannel(recoverableChannel.get());
-                var user = userMessage.consumeMessage(box.getChannel());
-                box.getServiceResponse().setUser(user);
+               userMessage.consumeMessage(recoverableChannel.get());
             }else{
                 logger.info("[CHANNEL] MQ channel creation failed ");
             }
         } catch (Exception e) {
-            box.getServiceResponse().setErrorMessage(e.getMessage());
             logger.error(e.getMessage(),e);
         }
     }

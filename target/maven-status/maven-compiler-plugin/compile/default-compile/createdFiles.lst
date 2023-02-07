@@ -1,3 +1,6 @@
+com/codetrik/simpleConsumer/event/listner/MQUserMessageEventListener.class
+com/codetrik/simpleConsumer/RabbitMqConfig.class
+com/codetrik/simpleConsumer/service/LoanService.class
 com/codetrik/simpleConsumer/service/UserMessage.class
 com/codetrik/simpleConsumer/setup/SimpleConsumerServiceBox.class
 com/codetrik/simpleConsumer/controller/Controller.class
@@ -6,6 +9,7 @@ com/codetrik/simpleConsumer/ConcurrencyConfig.class
 com/codetrik/simpleConsumer/scheduler/LoanScheduler.class
 com/codetrik/simpleConsumer/service/LoanMessage.class
 com/codetrik/simpleConsumer/service/UserService.class
-com/codetrik/simpleConsumer/RabbitMqConfig.class
-com/codetrik/simpleConsumer/service/LoanService.class
+com/codetrik/simpleConsumer/event/MQUserMessageEvent.class
+com/codetrik/simpleConsumer/event/listner/MQLoanMessageEventListener.class
+com/codetrik/simpleConsumer/event/MQLoanMessageEvent.class
 com/codetrik/simpleConsumer/scheduler/UserScheduler.class
