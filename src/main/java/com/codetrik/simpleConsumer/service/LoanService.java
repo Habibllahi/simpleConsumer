@@ -10,15 +10,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.codetrik.BeanQualifier.LOAN_MESSAGE;
+import static com.codetrik.BeanQualifier.LOAN_SERVICE;
+import static com.codetrik.BeanQualifier.RABBIT_MQ_CONNECTION;
+
 @Service
-@Qualifier("loan-service")
+@Qualifier(LOAN_SERVICE)
 public class LoanService {
     private final LoanMessage loanMessage;
     private final Connection connection;
 
-    private Logger logger = LoggerFactory.getLogger("LoanService");
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public LoanService(@Qualifier("loan-message") LoanMessage loanMessage, @Qualifier("rabbit-mq-connection") Connection connection) {
+    public LoanService(@Qualifier(LOAN_MESSAGE) LoanMessage loanMessage, @Qualifier(RABBIT_MQ_CONNECTION) Connection connection) {
         this.loanMessage = loanMessage;
         this.connection = connection;
     }

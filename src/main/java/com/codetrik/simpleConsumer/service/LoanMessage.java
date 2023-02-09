@@ -20,17 +20,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import static com.codetrik.BeanQualifier.LOAN_MESSAGE;
 import static com.codetrik.Constants.LOAN_QUEUE;
 
 @Service
 @Getter
 @Setter
-@Qualifier("loan-message")
+@Qualifier(LOAN_MESSAGE)
 public class LoanMessage implements Message<LoanApplication> {
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
-    private Logger logger = LoggerFactory.getLogger("LoanMessage");
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     private ObjectMapper mapper = new ObjectMapper();
     @Override
     public void publishMessage(Channel channel, LoanApplication loanApplication) {
@@ -54,9 +55,6 @@ public class LoanMessage implements Message<LoanApplication> {
                 channel.basicPublish("",replyToQue,prop,mapper.writeValueAsBytes(data));
                 applicationEventPublisher.publishEvent(new MQLoanMessageEvent(this,new MQEvent<>(data)));
                 channel.basicAck(message.getEnvelope().getDeliveryTag(),false);
-                if(!(consumeFromQueue.getMessageCount() > 0)){
-                    SharedConnectionFactory.closeChannel(channel);
-                }
             }
         };
 

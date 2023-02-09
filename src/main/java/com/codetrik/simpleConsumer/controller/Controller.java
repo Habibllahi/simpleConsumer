@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ExecutorService;
 
+import static com.codetrik.BeanQualifier.SERVICE_EXECUTOR;
+import static com.codetrik.BeanQualifier.USER_SERVICE;
+
 @RestController
 @RequestMapping("/api/v1")
 public class Controller {
     private final ExecutorService executorService;
     private final UserService userService;
 
-    public Controller(@Qualifier("service-executor") ExecutorService executorService, @Qualifier("user-service") UserService userService) {
+    public Controller(@Qualifier(SERVICE_EXECUTOR) ExecutorService executorService, @Qualifier(USER_SERVICE) UserService userService) {
         this.executorService = executorService;
         this.userService = userService;
     }

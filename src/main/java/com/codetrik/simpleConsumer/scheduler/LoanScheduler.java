@@ -11,21 +11,23 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static com.codetrik.BeanQualifier.ASYNC_SCHEDULER_EXECUTOR;
+import static com.codetrik.BeanQualifier.LOAN_SERVICE;
+import static com.codetrik.BeanQualifier.SERVICE_EXECUTOR;
+
 @Component
 public class LoanScheduler {
-    private final ExecutorService executorService;
     private final LoanService loanService;
 
-    private Logger logger = LoggerFactory.getLogger("LoanScheduler");
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public LoanScheduler(@Qualifier("service-executor") ExecutorService executorService,
-                         @Qualifier("loan-service") LoanService loanService) {
-        this.executorService = executorService;
+    public LoanScheduler(
+            @Qualifier(LOAN_SERVICE) LoanService loanService) {
         this.loanService = loanService;
     }
 
     @Scheduled(fixedDelay = 3L, timeUnit = TimeUnit.SECONDS)
-    @Async("async-executor")
+    @Async(ASYNC_SCHEDULER_EXECUTOR)
     public void consumeLoanApplicationMessage(){
         logger.info("[SCHEDULER INFO] consumeLoanMessage scheduler started");
         this.loanService.consumeLoanApplicationProcess();

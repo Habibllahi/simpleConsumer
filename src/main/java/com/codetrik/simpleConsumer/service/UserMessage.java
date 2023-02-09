@@ -16,16 +16,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import static com.codetrik.BeanQualifier.USER_MESSAGE;
 import static com.codetrik.Constants.USER_QUEUE;
 
 @Service
 @Getter
 @Setter
-@Qualifier("user-message")
+@Qualifier(USER_MESSAGE)
 public class UserMessage implements Message<User> {
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
-    private Logger logger = LoggerFactory.getLogger("UserMessage");
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     @Override
     public void publishMessage(Channel channel, User user) {
     }

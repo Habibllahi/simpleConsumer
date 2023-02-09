@@ -11,20 +11,20 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static com.codetrik.BeanQualifier.ASYNC_SCHEDULER_EXECUTOR;
+import static com.codetrik.BeanQualifier.USER_SERVICE;
+
 @Component
 public class UserScheduler {
-    private final ExecutorService executorService;
     private final UserService userService;
     private Logger logger = LoggerFactory.getLogger("UserScheduler");
 
-    public UserScheduler(@Qualifier("service-executor") ExecutorService executorService,
-                         @Qualifier("user-service") UserService userService) {
-        this.executorService = executorService;
+    public UserScheduler(@Qualifier(USER_SERVICE) UserService userService) {
         this.userService = userService;
     }
 
     @Scheduled(fixedDelay = 2L, timeUnit = TimeUnit.SECONDS)
-    @Async("async-executor")
+    @Async(ASYNC_SCHEDULER_EXECUTOR)
     public void consumeUserMessage(){
         logger.info("[SCHEDULER INFO] consumeUserMessage scheduler started");
         this.userService.consumeUser();
