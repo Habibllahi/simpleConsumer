@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Scope;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static com.codetrik.BeanQualifier.RABBIT_MQ_CONNECTION;
 import static com.codetrik.BeanQualifier.RABBIT_MQ_EXECUTOR;

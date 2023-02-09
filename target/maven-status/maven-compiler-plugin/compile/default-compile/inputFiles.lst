@@ -1,5 +1,7 @@
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/RabbitMqConfig.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/scheduler/InsuranceScheduler.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/event/MQUserMessageEvent.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/event/MQInsuranceMessageEvent.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/scheduler/UserScheduler.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/service/LoanService.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/event/MQLoanMessageEvent.java
@@ -8,8 +10,12 @@
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/service/UserMessage.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/scheduler/LoanScheduler.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/controller/Controller.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/event/listner/MQCarInsuranceMessageEventListener.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/service/CarInsuranceService.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/event/listner/MQUserMessageEventListener.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/service/LoanMessage.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/service/CarInsuranceMessage.java
+/home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/AppConfig.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/SimplePublisherApplication.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/service/UserService.java
 /home/codetrik/software/Spring/api/REST/mastering/simpleConsumer/src/main/java/com/codetrik/simpleConsumer/ConcurrencyConfig.java

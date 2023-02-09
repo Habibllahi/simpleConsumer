@@ -25,6 +25,6 @@ public class ConcurrencyConfig {
     }
     @Bean(ASYNC_SCHEDULER_EXECUTOR)
     public ExecutorService asyncExecutor(){
-        return Executors.newScheduledThreadPool(2);
+        return Executors.newScheduledThreadPool(3);
     }
 }

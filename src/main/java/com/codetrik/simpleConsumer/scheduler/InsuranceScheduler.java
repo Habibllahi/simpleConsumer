@@ -1,6 +1,7 @@
 package com.codetrik.simpleConsumer.scheduler;
 
-import com.codetrik.simpleConsumer.service.UserService;
+import com.codetrik.simpleConsumer.service.CarInsuranceMessage;
+import com.codetrik.simpleConsumer.service.CarInsuranceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,21 +12,22 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
 import static com.codetrik.BeanQualifier.ASYNC_SCHEDULER_EXECUTOR;
-import static com.codetrik.BeanQualifier.USER_SERVICE;
+import static com.codetrik.BeanQualifier.CAR_INSURANCE_SERVICE;
 
 @Component
-public class UserScheduler {
-    private final UserService userService;
+public class InsuranceScheduler {
+    private final CarInsuranceService insuranceService;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public UserScheduler(@Qualifier(USER_SERVICE) UserService userService) {
-        this.userService = userService;
+    public InsuranceScheduler(@Qualifier(CAR_INSURANCE_SERVICE) CarInsuranceService insuranceService) {
+        this.insuranceService = insuranceService;
     }
 
     @Scheduled(fixedDelay = 2L, timeUnit = TimeUnit.SECONDS)
     @Async(ASYNC_SCHEDULER_EXECUTOR)
-    public void consumeUserMessage(){
-        logger.info("[SCHEDULER INFO] consumeUserMessage scheduler started");
-        this.userService.consumeUser();
+    public void processFeedBack(){
+        logger.info("[SCHEDULER INFO] insurance message feedback scheduler started successfully");
+        this.insuranceService.consumeCarInsuranceMessage();
     }
 }

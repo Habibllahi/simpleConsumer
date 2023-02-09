@@ -6,29 +6,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import static com.codetrik.BeanQualifier.LOAN_MESSAGE;
-import static com.codetrik.BeanQualifier.LOAN_SERVICE;
-import static com.codetrik.BeanQualifier.RABBIT_MQ_CONNECTION;
+import static com.codetrik.BeanQualifier.CAR_INSURANCE_SERVICE;
 
 @Service
-@Qualifier(LOAN_SERVICE)
-public class LoanService {
-    private final LoanMessage loanMessage;
+@Qualifier(CAR_INSURANCE_SERVICE)
+public class CarInsuranceService {
     private final Connection connection;
+    private final CarInsuranceMessage carInsuranceMessage;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public LoanService(@Qualifier(LOAN_MESSAGE) LoanMessage loanMessage, @Qualifier(RABBIT_MQ_CONNECTION) Connection connection) {
-        this.loanMessage = loanMessage;
+    public CarInsuranceService(Connection connection, CarInsuranceMessage carInsuranceMessage) {
         this.connection = connection;
+        this.carInsuranceMessage = carInsuranceMessage;
     }
 
-
-    public void consumeLoanApplicationProcess(){
+    public void consumeCarInsuranceMessage(){
         try {
             var recoverableChannel = this.connection.openChannel();
             if(recoverableChannel.isPresent()){
-                this.loanMessage.consumeMessage(recoverableChannel.get());
+                this.carInsuranceMessage.consumeMessage(recoverableChannel.get());
             }else{
                 logger.info("[CHANNEL] MQ channel creation failed ");
             }

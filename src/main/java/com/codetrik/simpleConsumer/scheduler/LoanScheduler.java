@@ -8,12 +8,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import static com.codetrik.BeanQualifier.ASYNC_SCHEDULER_EXECUTOR;
 import static com.codetrik.BeanQualifier.LOAN_SERVICE;
-import static com.codetrik.BeanQualifier.SERVICE_EXECUTOR;
 
 @Component
 public class LoanScheduler {

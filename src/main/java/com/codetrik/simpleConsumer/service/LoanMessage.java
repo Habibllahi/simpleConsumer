@@ -1,9 +1,8 @@
 package com.codetrik.simpleConsumer.service;
 
 import com.codetrik.Message;
-import com.codetrik.SharedConnectionFactory;
 import com.codetrik.dto.LoanApplication;
-import com.codetrik.dto.LoanResponse;
+import com.codetrik.dto.Response;
 import com.codetrik.event.MQEvent;
 import com.codetrik.simpleConsumer.event.MQLoanMessageEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,8 +48,7 @@ public class LoanMessage implements Message<LoanApplication> {
             var propBuilder = new AMQP.BasicProperties().builder();
             var prop = propBuilder.correlationId(message.getProperties().getCorrelationId()).build();
             if(data != null){
-                data.setResponse(new LoanResponse());
-                data.getResponse().setOk(Boolean.TRUE);
+                data.setResponse(new Response(Boolean.TRUE));
                 //Provide feedback
                 channel.basicPublish("",replyToQue,prop,mapper.writeValueAsBytes(data));
                 applicationEventPublisher.publishEvent(new MQLoanMessageEvent(this,new MQEvent<>(data)));

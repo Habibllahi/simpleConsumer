@@ -1,6 +1,5 @@
 package com.codetrik.simpleConsumer.service;
 
-import com.codetrik.simpleConsumer.setup.SimpleConsumerServiceBox;
 import com.rabbitmq.client.Connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
