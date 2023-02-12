@@ -25,7 +25,7 @@ public class UserScheduler {
     @Scheduled(fixedDelay = 2L, timeUnit = TimeUnit.SECONDS)
     @Async(ASYNC_SCHEDULER_EXECUTOR)
     public void consumeUserMessage(){
-        logger.info("[SCHEDULER INFO] consumeUserMessage scheduler started");
+        logger.info("[USER SCHEDULER INFO] consumeUserMessage scheduler started");
         this.userService.consumeUser();
     }
 }

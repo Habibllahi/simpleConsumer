@@ -1,6 +1,7 @@
 package com.codetrik.simpleConsumer.service;
 
 import com.codetrik.Message;
+import com.codetrik.SharedConnectionFactory;
 import com.codetrik.dto.CarInsurance;
 import com.codetrik.dto.Response;
 import com.codetrik.event.MQEvent;
@@ -17,6 +18,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.codetrik.BeanQualifier.FASTER_XML_MAPPER;
 import static com.codetrik.Constants.CORRELATION_ID_2;

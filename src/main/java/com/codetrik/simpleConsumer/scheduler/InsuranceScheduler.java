@@ -27,7 +27,7 @@ public class InsuranceScheduler {
     @Scheduled(fixedDelay = 2L, timeUnit = TimeUnit.SECONDS)
     @Async(ASYNC_SCHEDULER_EXECUTOR)
     public void processFeedBack(){
-        logger.info("[SCHEDULER INFO] insurance message feedback scheduler started successfully");
+        logger.info("[INSURANCE SCHEDULER INFO] insurance message feedback scheduler started successfully");
         this.insuranceService.consumeCarInsuranceMessage();
     }
 }

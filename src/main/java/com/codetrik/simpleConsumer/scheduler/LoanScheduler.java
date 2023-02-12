@@ -27,7 +27,7 @@ public class LoanScheduler {
     @Scheduled(fixedDelay = 3L, timeUnit = TimeUnit.SECONDS)
     @Async(ASYNC_SCHEDULER_EXECUTOR)
     public void consumeLoanApplicationMessage(){
-        logger.info("[SCHEDULER INFO] consumeLoanMessage scheduler started");
+        logger.info("[LOAN SCHEDULER INFO] consumeLoanMessage scheduler started");
         this.loanService.consumeLoanApplicationProcess();
     }
 }

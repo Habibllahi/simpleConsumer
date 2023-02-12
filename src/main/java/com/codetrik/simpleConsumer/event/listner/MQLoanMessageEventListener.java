@@ -11,6 +11,6 @@ public class MQLoanMessageEventListener implements ApplicationListener<MQLoanMes
     private Logger logger = LoggerFactory.getLogger("MQLoanMessageEventListener");
     @Override
     public void onApplicationEvent(MQLoanMessageEvent event) {
-        logger.info("[LOAN MESSAGE PROCESSED] loan applicant name is " + event.getLoanMQMessage().getMessage().getName());
+        logger.info("[LOAN MESSAGE PROCESSING] loan applicant name is " + event.getLoanMQMessage().getMessage().getName());
     }
 }

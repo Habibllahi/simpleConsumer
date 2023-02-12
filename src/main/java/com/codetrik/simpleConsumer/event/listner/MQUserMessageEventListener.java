@@ -11,7 +11,7 @@ public class MQUserMessageEventListener implements ApplicationListener<MQUserMes
     private Logger logger = LoggerFactory.getLogger("MQUserMessageEventListener");
     @Override
     public void onApplicationEvent(MQUserMessageEvent event) {
-        logger.info("[USER MESSAGE PROCESSED] user name is " + event.getUserMQMessage().getMessage().getFirstName());
+        logger.info("[USER MESSAGE PROCESSING] user name is " + event.getUserMQMessage().getMessage().getFirstName());
 
     }
 }
