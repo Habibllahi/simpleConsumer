@@ -27,7 +27,7 @@ public class CarInsuranceService {
             if(recoverableChannel.isPresent()){
                 this.carInsuranceMessage.consumeMessage(recoverableChannel.get());
             }else{
-                logger.info("[CHANNEL] MQ channel creation failed ");
+                logger.info("[CAR CHANNEL] MQ channel creation failed ");
             }
         } catch (Exception e) {
             this.logger.error(e.getMessage(),e);

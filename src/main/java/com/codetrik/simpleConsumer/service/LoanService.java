@@ -30,7 +30,7 @@ public class LoanService {
             if(recoverableChannel.isPresent()){
                 this.loanMessage.consumeMessage(recoverableChannel.get());
             }else{
-                logger.info("[CHANNEL] MQ channel creation failed ");
+                logger.info("[LOAN CHANNEL] MQ channel creation failed ");
             }
         } catch (Exception e) {
             this.logger.error(e.getMessage(),e);

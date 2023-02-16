@@ -2,6 +2,7 @@ com/codetrik/simpleConsumer/service/CarInsuranceMessage.class
 com/codetrik/simpleConsumer/scheduler/InsuranceScheduler.class
 com/codetrik/simpleConsumer/event/listner/MQUserMessageEventListener.class
 com/codetrik/simpleConsumer/AppConfig.class
+com/codetrik/simpleConsumer/service/UserDirectMessage.class
 com/codetrik/simpleConsumer/RabbitMqConfig.class
 com/codetrik/simpleConsumer/service/LoanService.class
 com/codetrik/simpleConsumer/event/listner/MQCarInsuranceMessageEventListener.class

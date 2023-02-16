@@ -28,4 +28,11 @@ public class UserScheduler {
         logger.info("[USER SCHEDULER INFO] consumeUserMessage scheduler started");
         this.userService.consumeUser();
     }
+
+    @Scheduled(fixedDelay = 2L, timeUnit = TimeUnit.SECONDS)
+    @Async(ASYNC_SCHEDULER_EXECUTOR)
+    public void consumeUserDirectMessage(){
+        logger.info("[USER_DIRECT SCHEDULER INFO] consumeUserDirectMessage scheduler started");
+        this.userService.consumeDirectUser();
+    }
 }
